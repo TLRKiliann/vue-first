@@ -1,6 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-
+import { defineComponent } from 'vue';
 export default defineComponent({
   name: "App",
   data() {
@@ -20,22 +19,27 @@ export default defineComponent({
           name: "Rv",
           age: 33
         },
-      ]
+      ],
+      status: 'status',
+      testColor: 'testColor',
+      textStyle: {color: "orange"},
+      isPromoted: 'isPromoted',
+      isNotPromoted: 'isNotPromoted'
     }
   },
   methods: {
+    changeName(): string {
+      this.name = "Douglas"
+      return this.name;
+    },
+    decrement(): number {
+      this.count -= 1
+      return this.count;
+    },
     add(num: number): number {
       this.myNum = num + 1
       return this.myNum;
     },
-    changeName() {
-      this.name = "Douglas"
-      return this.name;
-    },
-    decrement() {
-      this.count -= 1
-      return this.count;
-    }
   }
 })
 </script>
@@ -44,10 +48,16 @@ export default defineComponent({
   <header>
     <h2 v-text="name"></h2>
     <h2>Hello {{ name }}</h2>
+
     <button v-on:click="name = 'Alphonso'">Change Name</button>
     <button v-on:click="changeName">Change Again</button>
-  
-    <h2>{{ count }}</h2>
+
+    <h2 v-bind:class="status">La couleur cyan</h2>
+    <h2 v-bind:class="testColor">La couleur lightgreen</h2>
+    <h2 v-bind:style="textStyle">Un autre style</h2>
+
+    <h2 v-bind:class="count > 0 ? 'isPromoted' : 'isNotPromoted'">{{ count }}</h2>
+
     <button @click="count++">Increment {{ count }}</button>
     <button @click="decrement">Decrement {{ count }}</button>
 
@@ -57,7 +67,7 @@ export default defineComponent({
     <h2 v-text="myList[1]"></h2>
 
     <div v-for="item in myListObj" :key="item.id">
-      <div v-if="item.name === 'Sabine'">{{ item.name }} {{ item.age }}</div>
+      <div v-if="item.name === 'Sabine'">Name: {{ item.name }} - Age: {{ item.age }} years</div>
     </div>
     
   </header>
@@ -67,5 +77,17 @@ export default defineComponent({
   header {
     line-height: 1.5;
     max-height: 100vh;
+  }
+  .testColor {
+    color: lightgreen;
+  }
+  .status {
+    color: cyan;
+  }
+  .isPromoted {
+    color: cyan;
+  }
+  .isNotPromoted {
+    color: yellow;
   }
 </style>
